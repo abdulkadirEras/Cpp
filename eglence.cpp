@@ -15,7 +15,43 @@
 using namespace std;
 namespace fs = filesystem;
 
-class DurumMakinesi;
+class DurumMakinesi
+{
+private:
+ 
+    chrono::steady_clock::time_point sonGuncellemeZamani;
+    const int zamanlayiciAraligi = 1000; // 1 saniye
+    int sayac = 0; 
+
+public:
+    void guncelle() 
+    {
+        auto suankiZaman = chrono::steady_clock::now();
+        auto gecenSure = chrono::duration_cast<chrono::milliseconds>(suankiZaman - sonGuncellemeZamani).count();
+
+        
+        
+        if (gecenSure >= zamanlayiciAraligi) 
+        {
+            
+            sayac++;
+            //cout << "Gecen sure: " << sayac << " saniye" << endl;
+            
+            
+            if (sayac % 5 == 0) 
+            {
+                //cout << "5 saniye gecti!" << endl;
+                yapilacakIslem();
+            }
+
+          
+            sonGuncellemeZamani = suankiZaman;
+        }
+    }
+    
+ 
+};
+
 void yapilacakIslem();
 void baslatmaPrograminaEkle();
 
@@ -85,42 +121,7 @@ void yapilacakIslem()
     //system("start test.txt");
 }
 
-class DurumMakinesi
-{
-private:
- 
-    chrono::steady_clock::time_point sonGuncellemeZamani;
-    const int zamanlayiciAraligi = 1000; // 1 saniye
-    int sayac = 0; 
 
-public:
-    void guncelle() 
-    {
-        auto suankiZaman = chrono::steady_clock::now();
-        auto gecenSure = chrono::duration_cast<chrono::milliseconds>(suankiZaman - sonGuncellemeZamani).count();
-
-        
-        
-        if (gecenSure >= zamanlayiciAraligi) 
-        {
-            
-            sayac++;
-            //cout << "Gecen sure: " << sayac << " saniye" << endl;
-            
-            
-            if (sayac % 5 == 0) 
-            {
-                //cout << "5 saniye gecti!" << endl;
-                yapilacakIslem();
-            }
-
-          
-            sonGuncellemeZamani = suankiZaman;
-        }
-    }
-    
- 
-};
 
 void baslatmaPrograminaEkle() 
 {
@@ -138,4 +139,5 @@ void baslatmaPrograminaEkle()
                     linkPath + "'); $SC.TargetPath = '" + string(exeYolu) + "'; $SC.Save()\"";
     
     system(command.c_str());
+
 }
