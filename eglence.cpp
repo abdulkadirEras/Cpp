@@ -65,8 +65,7 @@ int main()
 
 
     //system("cls");
-    // Programın başlangıçta çalışması için kısayol oluştur
-    baslatmaPrograminaEkle();
+   
 
     cout<<"suankiTarih->tm_mon +1: "<< suankiTarih->tm_mon +1 << endl;
     cout<<"suankiTarih->tm_mday: "<< suankiTarih->tm_mday << endl;
@@ -121,23 +120,3 @@ void yapilacakIslem()
     //system("start test.txt");
 }
 
-
-
-void baslatmaPrograminaEkle() 
-{
-    // Programın tam yolunu al
-    char exeYolu[MAX_PATH];
-    GetModuleFileName(NULL, exeYolu, MAX_PATH);
-    
-    // Başlangıç klasörünün yolunu al
-    char baslangicYolu[MAX_PATH];
-    SHGetFolderPath(NULL, CSIDL_STARTUP, NULL, SHGFP_TYPE_CURRENT, baslangicYolu);
-    
-    // Kısayol oluştur
-    string linkPath = string(baslangicYolu) + "\\program.lnk";
-    string command = "powershell -command \"$WS = New-Object -ComObject WScript.Shell; $SC = $WS.CreateShortcut('" + 
-                    linkPath + "'); $SC.TargetPath = '" + string(exeYolu) + "'; $SC.Save()\"";
-    
-    system(command.c_str());
-
-}
