@@ -53,7 +53,6 @@ public:
 };
 
 void yapilacakIslem();
-void baslatmaPrograminaEkle();
 
 
 int main() 
@@ -119,4 +118,5 @@ void yapilacakIslem()
 
     //system("start test.txt");
 }
+
 
